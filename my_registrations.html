@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Registrations | BBA Event Hub</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
+```
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+
+<nav class="navbar">
+
+```
+<div class="logo">
+    BBA Event Hub
+</div>
+
+<ul class="nav-links">
+
+    <li>
+        <a href="/">Home</a>
+    </li>
+
+    <li>
+        <a href="/events">Events</a>
+    </li>
+
+    <li>
+        <a href="/about">About</a>
+    </li>
+
+    <li>
+        <a href="/contact">Contact</a>
+    </li>
+
+    <li>
+        <a href="/my-registrations">
+            My Registrations
+        </a>
+    </li>
+
+</ul>
+```
+
+</nav>
+
+<!-- Page Header -->
+
+<header class="page-header">
+
+```
+<h1>
+    My Registrations
+</h1>
+
+<p>
+    View and manage the events you have registered for.
+</p>
+```
+
+</header>
+
+<!-- Search Student ID -->
+
+<section class="section">
+
+```
+<div style="max-width: 700px; margin: auto;">
+
+    <div class="event-card">
+
+        <div class="event-info">
+
+            <h2>
+                Find Your Registrations
+            </h2>
+
+            <p>
+                Enter your Student ID to view your registered events.
+            </p>
+
+
+            <form method="POST">
+
+                <label>
+                    Student ID
+                </label>
+
+                <input
+                    type="text"
+                    name="student_id"
+                    required
+                    placeholder="Enter your Student ID"
+                    style="width: 100%; padding: 12px; margin: 8px 0 20px;"
+                >
+
+
+                <button
+                    type="submit"
+                    class="btn">
+
+                    View My Registrations
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Registration Results -->
+
+    {% if registrations %}
+
+        <h2 style="margin-top: 45px; color: #071a2b;">
+
+            Your Registered Events
+
+        </h2>
+
+
+        {% for registration in registrations %}
+
+            <div
+                class="event-card"
+                style="margin-top: 20px;"
+            >
+
+                <div class="event-info">
+
+                    <span class="category">
+                        Registered
+                    </span>
+
+
+                    <h2 style="margin-top: 15px;">
+
+                        {{ registration.event_title }}
+
+                    </h2>
+
+
+                    <p>
+                        👤
+                        <strong>Name:</strong>
+                        {{ registration.name }}
+                    </p>
+
+
+                    <p>
+                        🎓
+                        <strong>Student ID:</strong>
+                        {{ registration.student_id }}
+                    </p>
+
+
+                    <p>
+                        📧
+                        <strong>Email:</strong>
+                        {{ registration.email }}
+                    </p>
+
+
+                    <div style="margin-top: 25px; display: flex; gap: 10px; flex-wrap: wrap;">
+
+                        <a
+                            href="/event/{{ registration.event_id }}"
+                            class="btn"
+                        >
+                            View Event
+                        </a>
+
+
+                        <form
+                            method="POST"
+                            action="/cancel-registration/{{ registration._id }}"
+                            onsubmit="return confirm('Are you sure you want to cancel this registration?');"
+                            style="margin: 0;"
+                        >
+
+                            <button
+                                type="submit"
+                                class="btn"
+                                style="background: #e74c3c;"
+                            >
+                                Cancel Registration
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+
+    {% elif request.method == "POST" %}
+
+        <div
+            class="event-card"
+            style="margin-top: 30px;"
+        >
+
+            <div class="event-info">
+
+                <h2>
+                    No Registrations Found
+                </h2>
+
+                <p>
+                    We couldn't find any registrations
+                    for this Student ID.
+                </p>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</div>
+```
+
+</section>
+
+<!-- Footer -->
+
+<footer class="footer">
+
+```
+<p>
+    © 2026 BBA Event Hub
+</p>
+
+<p>
+    BBA International Program
+</p>
+```
+
+</footer>
+
+</body>
+
+</html>
