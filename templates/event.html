@@ -1,1 +1,244 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{{ event.title }} | BBA Event Hub</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
+```
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+
+<nav class="navbar">
+
+```
+<div class="logo">
+    BBA Event Hub
+</div>
+
+<ul class="nav-links">
+
+    <li>
+        <a href="/">
+            Home
+        </a>
+    </li>
+
+    <li>
+        <a href="/events">
+            Events
+        </a>
+    </li>
+
+    <li>
+        <a href="/about">
+            About
+        </a>
+    </li>
+
+    <li>
+        <a href="/contact">
+            Contact
+        </a>
+    </li>
+
+    <li>
+        <a href="/my-registrations">
+            My Registrations
+        </a>
+    </li>
+
+</ul>
+```
+
+</nav>
+
+<!-- Event Details -->
+
+<section class="section">
+
+```
+<div style="max-width: 900px; margin: auto;">
+
+    <a
+        href="/events"
+        style="
+            text-decoration: none;
+            color: #2386c8;
+            font-weight: 600;
+        "
+    >
+        ← Back to Events
+    </a>
+
+
+    <div
+        class="event-card"
+        style="
+            max-width: 850px;
+            margin: 30px auto;
+            overflow: hidden;
+        "
+    >
+
+
+        <!-- Event Banner -->
+
+        <div
+            class="event-image"
+            style="
+                height: 280px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 30px;
+                font-weight: 700;
+            "
+        >
+
+            {{ event.title }}
+
+        </div>
+
+
+
+        <!-- Event Information -->
+
+        <div class="event-info">
+
+
+            <span class="category">
+
+                {{ event.category }}
+
+            </span>
+
+
+            <h1
+                style="
+                    margin: 15px 0 20px;
+                    color: #1e6fa8;
+                "
+            >
+
+                {{ event.title }}
+
+            </h1>
+
+
+            <p>
+
+                📅
+                <strong>Date:</strong>
+                {{ event.date }}
+
+            </p>
+
+
+            <p>
+
+                🕐
+                <strong>Time:</strong>
+                {{ event.time }}
+
+            </p>
+
+
+            <p>
+
+                📍
+                <strong>Location:</strong>
+                {{ event.location }}
+
+            </p>
+
+
+            <hr
+                style="
+                    margin: 25px 0;
+                    border: 0;
+                    border-top: 1px solid #e0e8ef;
+                "
+            >
+
+
+            <h3>
+                About This Event
+            </h3>
+
+
+            <p style="margin-top: 10px;">
+
+                {{ event.description }}
+
+            </p>
+
+
+            <!-- Buttons -->
+
+            <div
+                style="
+                    margin-top: 30px;
+                    display: flex;
+                    gap: 12px;
+                    flex-wrap: wrap;
+                "
+            >
+
+                <a
+                    href="/register/{{ event._id }}"
+                    class="btn"
+                >
+                    Register Now
+                </a>
+
+
+                <a
+                    href="/my-registrations"
+                    class="btn"
+                >
+                    My Registrations
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- Footer -->
+
+<footer class="footer">
+
+```
+<p>
+    © 2026 BBA Event Hub
+</p>
+
+<p>
+    BBA International Program
+</p>
+```
+
+</footer>
+
+</body>
+</html>
 
