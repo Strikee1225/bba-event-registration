@@ -18,11 +18,9 @@ def home():
 def events():
     try:
         event_list = list(events_collection.find())
-        print("EVENTS:", event_list)
         return render_template("events.html", events=event_list)
     except Exception as e:
-        print("EVENTS ERROR:", e)
-        return f"Events Error: {e}", 500
+        return f"<h1>ERROR</h1><pre>{str(e)}</pre>", 500
 
 
 # About Page
