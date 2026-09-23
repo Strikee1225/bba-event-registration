@@ -1,1 +1,180 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Events | BBA Event Hub</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
+```
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+
+<nav class="navbar">
+
+```
+<div class="logo">
+    BBA Event Hub
+</div>
+
+<ul class="nav-links">
+
+    <li>
+        <a href="/">
+            Home
+        </a>
+    </li>
+
+    <li>
+        <a href="/events">
+            Events
+        </a>
+    </li>
+
+    <li>
+        <a href="/about">
+            About
+        </a>
+    </li>
+
+    <li>
+        <a href="/contact">
+            Contact
+        </a>
+    </li>
+
+    <li>
+        <a href="/my-registrations">
+            My Registrations
+        </a>
+    </li>
+
+</ul>
+```
+
+</nav>
+
+<!-- Page Header -->
+
+<header class="page-header">
+
+```
+<h1>
+    Upcoming Events
+</h1>
+
+<p>
+    Explore events and activities in the BBA community.
+</p>
+```
+
+</header>
+
+<!-- Events Section -->
+
+<section class="section">
+
+```
+<div class="event-grid">
+
+    {% for event in events %}
+
+    <div class="event-card">
+
+
+        <div class="event-image">
+
+            {{ event.title }}
+
+        </div>
+
+
+        <div class="event-info">
+
+
+            <span class="category">
+
+                {{ event.category }}
+
+            </span>
+
+
+            <h3>
+
+                {{ event.title }}
+
+            </h3>
+
+
+            <p>
+
+                📅 {{ event.date }}
+
+            </p>
+
+
+            <p>
+
+                🕐 {{ event.time }}
+
+            </p>
+
+
+            <p>
+
+                📍 {{ event.location }}
+
+            </p>
+
+
+            <a
+                href="/event/{{ event._id }}"
+                class="btn"
+            >
+
+                View Details →
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+```
+
+</section>
+
+<!-- Footer -->
+
+<footer class="footer">
+
+```
+<p>
+    © 2026 BBA Event Hub
+</p>
+
+<p>
+    BBA International Program
+</p>
+```
+
+</footer>
+
+</body>
+
+</html>
 
