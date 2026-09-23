@@ -1,1 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Home | BBA Event Hub</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVIGATION
+         ========================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            BBA Event Hub
+        </div>
+
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="/">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="/events">
+                    Events
+                </a>
+            </li>
+
+            <li>
+                <a href="/about">
+                    About
+                </a>
+            </li>
+
+            <li>
+                <a href="/contact">
+                    Contact
+                </a>
+            </li>
+
+            <li>
+                <a href="/my-registrations">
+                    My Registrations
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+
+    <!-- =========================
+         HERO SECTION
+         ========================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Discover.<br>
+                Connect.<br>
+                Experience.
+            </h1>
+
+
+            <p>
+                Discover events, activities, and opportunities
+                created for BBA students.
+            </p>
+
+
+            <a href="/events" class="btn">
+                Explore Events →
+            </a>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         STATISTICS
+         ========================= -->
+
+    <section class="stats">
+
+
+        <div class="stat">
+
+            <h2>
+                8+
+            </h2>
+
+            <p>
+                Upcoming Events
+            </p>
+
+        </div>
+
+
+
+        <div class="stat">
+
+            <h2>
+                500+
+            </h2>
+
+            <p>
+                Students
+            </p>
+
+        </div>
+
+
+
+        <div class="stat">
+
+            <h2>
+                20+
+            </h2>
+
+            <p>
+                Activities
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         FEATURED EVENTS
+         ========================= -->
+
+    <section class="section">
+
+
+        <div class="section-title">
+
+            <h2>
+                Featured Events
+            </h2>
+
+            <p>
+                Explore what's happening in our BBA community.
+            </p>
+
+        </div>
+
+
+
+        <div class="event-grid">
+
+
+            <!-- =========================
+                 EVENT 1
+                 ========================= -->
+
+            <div class="event-card">
+
+                <div class="event-image">
+
+                    BBA Orientation
+
+                </div>
+
+
+                <div class="event-info">
+
+
+                    <span class="category">
+                        Academic
+                    </span>
+
+
+                    <h3>
+                        BBA Orientation 2026
+                    </h3>
+
+
+                    <p>
+                        📅 August 15, 2026
+                    </p>
+
+
+                    <p>
+                        📍 TSU International College
+                    </p>
+
+
+                    <a href="/events" class="btn">
+                        View Events →
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================
+                 EVENT 2
+                 ========================= -->
+
+            <div class="event-card">
+
+                <div class="event-image">
+
+                    Business Pitch
+
+                </div>
+
+
+                <div class="event-info">
+
+
+                    <span class="category">
+                        Competition
+                    </span>
+
+
+                    <h3>
+                        Business Pitch Competition
+                    </h3>
+
+
+                    <p>
+                        📅 August 22, 2026
+                    </p>
+
+
+                    <p>
+                        📍 Business Building
+                    </p>
+
+
+                    <a href="/events" class="btn">
+                        View Events →
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================
+                 EVENT 3
+                 ========================= -->
+
+            <div class="event-card">
+
+                <div class="event-image">
+
+                    Volunteer Day
+
+                </div>
+
+
+                <div class="event-info">
+
+
+                    <span class="category">
+                        Activity
+                    </span>
+
+
+                    <h3>
+                        BBA Volunteer Day
+                    </h3>
+
+
+                    <p>
+                        📅 September 5, 2026
+                    </p>
+
+
+                    <p>
+                        📍 Songkhla
+                    </p>
+
+
+                    <a href="/events" class="btn">
+                        View Events →
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         CALL TO ACTION
+         ========================= -->
+
+    <section class="section">
+
+        <div class="event-card"
+             style="
+                max-width: 900px;
+                margin: auto;
+                text-align: center;
+                padding: 45px 25px;
+             ">
+
+            <div class="event-info">
+
+                <span class="category">
+                    BBA COMMUNITY
+                </span>
+
+
+                <h2 style="
+                    margin: 15px 0 10px;
+                    color: #0b2b55;
+                ">
+                    Find Your Next Experience
+                </h2>
+
+
+                <p style="
+                    max-width: 600px;
+                    margin: 0 auto 25px;
+                ">
+                    Discover academic events, business competitions,
+                    workshops, and activities designed to help
+                    BBA students learn, connect, and grow.
+                </p>
+
+
+                <a href="/events" class="btn">
+                    Explore All Events →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         FOOTER
+         ========================= -->
+
+    <footer class="footer">
+
+        <p>
+            © 2026 BBA Event Hub
+        </p>
+
+        <p>
+            BBA International Program
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>
