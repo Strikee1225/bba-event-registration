@@ -16,8 +16,13 @@ def home():
 
 @app.route("/events")
 def events():
-    event_list = list(events_collection.find())
-    return render_template("events.html", events=event_list)
+    try:
+        event_list = list(events_collection.find())
+        print("EVENTS:", event_list)
+        return render_template("events.html", events=event_list)
+    except Exception as e:
+        print("EVENTS ERROR:", e)
+        return f"Events Error: {e}", 500
 
 
 # About Page
