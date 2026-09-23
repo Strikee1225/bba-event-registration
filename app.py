@@ -5,62 +5,62 @@ from database import events_collection, registrations_collection, messages_colle
 app = Flask(__name__)
 
 
-# Home Page
+# =========================
+# HOME PAGE
+# =========================
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
 
-# Events Page
+# =========================
+# EVENTS PAGE
+# =========================
 
 @app.route("/events")
 def events():
+
     try:
         event_list = list(events_collection.find())
+
     except Exception:
         event_list = [
             {
+                "_id": "1",
                 "title": "BBA Business Seminar",
                 "category": "Seminar",
                 "date": "25 September 2026",
                 "time": "10:00 AM",
                 "location": "BBA Building",
-                "description": "A business seminar for BBA students.",
-                "_id": "1"
+                "description": "A business seminar for BBA students."
             },
             {
+                "_id": "2",
                 "title": "BBA Sports Day",
                 "category": "Activity",
                 "date": "30 September 2026",
                 "time": "9:00 AM",
                 "location": "University Sports Center",
-                "description": "A fun sports activity for BBA students.",
-                "_id": "2"
+                "description": "A fun sports activity for BBA students."
             },
             {
+                "_id": "3",
                 "title": "Marketing Workshop",
                 "category": "Workshop",
                 "date": "5 October 2026",
                 "time": "1:00 PM",
                 "location": "BBA Building",
-                "description": "A practical marketing workshop.",
-                "_id": "3"
+                "description": "A practical workshop about marketing and business."
             }
         ]
 
     return render_template("events.html", events=event_list)
 
 
-# About Page
-
-@app.route("/about")
-def about():
-    return render_template("about.html")
-
-
-
-# Registration Page
+# =========================
+# EVENT DETAIL
+# =========================
 
 @app.route("/event/<event_id>")
 def event_detail(event_id):
@@ -95,13 +95,20 @@ def event_detail(event_id):
         }
     ]
 
-    event = next((e for e in events if e["_id"] == event_id), None)
+    event = next(
+        (e for e in events if e["_id"] == event_id),
+        None
+    )
 
     if event is None:
         return "Event not found", 404
 
     return render_template("event.html", event=event)
 
+
+# =========================
+# REGISTER
+# =========================
 
 @app.route("/register/<event_id>", methods=["GET", "POST"])
 def register(event_id):
@@ -133,29 +140,35 @@ def register(event_id):
         }
     ]
 
-    event = next((e for e in events if e["_id"] == event_id), None)
+    event = next(
+        (e for e in events if e["_id"] == event_id),
+        None
+    )
 
     if event is None:
         return "Event not found", 404
 
     if request.method == "POST":
+
+        registration = {
+            "event_id": event_id,
+            "event_title": event["title"],
+            "name": request.form["name"],
+            "student_id": request.form["student_id"],
+            "email": request.form["email"],
+            "phone": request.form["phone"]
+        }
+
+        # Try to save registration to MongoDB
+        try:
+            registrations_collection.insert_one(registration)
+        except Exception as e:
+            print("MongoDB registration error:", e)
+
         return render_template(
             "registration_success.html",
             event=event
         )
-
-    return render_template("register.html", event=event)
-
-        # Save registration to MongoDB
-
-        registrations_collection.insert_one(registration)
-
-        return render_template(
-            "registration_success.html",
-            event=event
-        )
-
-    # Show registration form
 
     return render_template(
         "register.html",
@@ -163,7 +176,9 @@ def register(event_id):
     )
 
 
-# Registration Success Page
+# =========================
+# REGISTRATION SUCCESS
+# =========================
 
 @app.route("/registration-success")
 def registration_success():
@@ -172,7 +187,10 @@ def registration_success():
         "registration_success.html"
     )
 
-# My Registrations Page
+
+# =========================
+# MY REGISTRATIONS
+# =========================
 
 @app.route("/my-registrations", methods=["GET", "POST"])
 def my_registrations():
@@ -183,11 +201,14 @@ def my_registrations():
 
         student_id = request.form["student_id"]
 
-        registrations = list(
-            registrations_collection.find({
-                "student_id": student_id
-            })
-        )
+        try:
+            registrations = list(
+                registrations_collection.find({
+                    "student_id": student_id
+                })
+            )
+        except Exception as e:
+            print("MongoDB error:", e)
 
     return render_template(
         "my_registrations.html",
@@ -195,7 +216,9 @@ def my_registrations():
     )
 
 
-# Cancel Registration
+# =========================
+# CANCEL REGISTRATION
+# =========================
 
 @app.route("/cancel-registration/<registration_id>", methods=["POST"])
 def cancel_registration(registration_id):
@@ -212,6 +235,21 @@ def cancel_registration(registration_id):
 
         return f"Error: {e}", 500
 
+
+# =========================
+# ABOUT
+# =========================
+
+@app.route("/about")
+def about():
+
+    return render_template("about.html")
+
+
+# =========================
+# CONTACT
+# =========================
+
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
 
@@ -223,7 +261,10 @@ def contact():
             "message": request.form["message"]
         }
 
-        messages_collection.insert_one(message)
+        try:
+            messages_collection.insert_one(message)
+        except Exception as e:
+            print("MongoDB message error:", e)
 
         return """
         <script>
@@ -234,47 +275,33 @@ def contact():
 
     return render_template("contact.html")
 
-# Event Detail Page
 
-@app.route("/event/<event_id>")
-def event_detail(event_id):
-
-    try:
-
-        event = events_collection.find_one({
-            "_id": event_id
-        })
-
-        if event is None:
-            return "Event not found", 404
-
-        return render_template(
-            "event.html",
-            event=event
-        )
-
-    except Exception as e:
-
-        return f"Error: {e}", 500
-
-
-# API - Get Events
+# =========================
+# API - GET EVENTS
+# =========================
 
 @app.route("/api/events")
 def get_events():
 
-    events = list(
-        events_collection.find(
-            {},
-            {"_id": 0}
+    try:
+
+        events = list(
+            events_collection.find(
+                {},
+                {"_id": 0}
+            )
         )
-    )
 
-    return jsonify(events)
+        return jsonify(events)
+
+    except Exception:
+
+        return jsonify([])
 
 
-# Run Flask
+# =========================
+# RUN FLASK
+# =========================
 
 if __name__ == "__main__":
-
     app.run(debug=True)
