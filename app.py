@@ -62,28 +62,89 @@ def about():
 
 # Registration Page
 
-@app.route("/register/<event_id>", methods=["GET", "POST"])
-def register(event_id):
+@app.route("/event/<event_id>")
+def event_detail(event_id):
 
-    event = events_collection.find_one({
-        "_id": event_id
-    })
+    events = [
+        {
+            "_id": "1",
+            "title": "BBA Business Seminar",
+            "category": "Seminar",
+            "date": "25 September 2026",
+            "time": "10:00 AM",
+            "location": "BBA Building",
+            "description": "A business seminar for BBA students."
+        },
+        {
+            "_id": "2",
+            "title": "BBA Sports Day",
+            "category": "Activity",
+            "date": "30 September 2026",
+            "time": "9:00 AM",
+            "location": "University Sports Center",
+            "description": "A fun sports activity for BBA students."
+        },
+        {
+            "_id": "3",
+            "title": "Marketing Workshop",
+            "category": "Workshop",
+            "date": "5 October 2026",
+            "time": "1:00 PM",
+            "location": "BBA Building",
+            "description": "A practical workshop about marketing and business."
+        }
+    ]
+
+    event = next((e for e in events if e["_id"] == event_id), None)
 
     if event is None:
         return "Event not found", 404
 
-    # When user submits the registration form
+    return render_template("event.html", event=event)
+
+
+@app.route("/register/<event_id>", methods=["GET", "POST"])
+def register(event_id):
+
+    events = [
+        {
+            "_id": "1",
+            "title": "BBA Business Seminar",
+            "category": "Seminar",
+            "date": "25 September 2026",
+            "time": "10:00 AM",
+            "location": "BBA Building"
+        },
+        {
+            "_id": "2",
+            "title": "BBA Sports Day",
+            "category": "Activity",
+            "date": "30 September 2026",
+            "time": "9:00 AM",
+            "location": "University Sports Center"
+        },
+        {
+            "_id": "3",
+            "title": "Marketing Workshop",
+            "category": "Workshop",
+            "date": "5 October 2026",
+            "time": "1:00 PM",
+            "location": "BBA Building"
+        }
+    ]
+
+    event = next((e for e in events if e["_id"] == event_id), None)
+
+    if event is None:
+        return "Event not found", 404
 
     if request.method == "POST":
+        return render_template(
+            "registration_success.html",
+            event=event
+        )
 
-        registration = {
-            "event_id": event_id,
-            "event_title": event["title"],
-            "name": request.form["name"],
-            "student_id": request.form["student_id"],
-            "email": request.form["email"],
-            "phone": request.form["phone"]
-        }
+    return render_template("register.html", event=event)
 
         # Save registration to MongoDB
 
